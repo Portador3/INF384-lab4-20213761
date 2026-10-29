@@ -8,6 +8,9 @@ before(() => {
   const dbPath = process.env.DB_PATH || '/tmp/wallet.db';
   if (fs.existsSync(dbPath)) {
     fs.unlinkSync(dbPath);
+    console.log(`[INTEGRATION] Base de datos eliminada: ${dbPath}`);
+  } else {
+    console.log(`[INTEGRATION] Base de datos limpia iniciada: ${dbPath}`);
   }
 });
 
