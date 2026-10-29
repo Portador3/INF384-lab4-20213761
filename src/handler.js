@@ -43,15 +43,15 @@ function enrutar(metodo, ruta, event) {
   }
   if (metodo === 'POST' && ruta === '/transferir') {
     let cuerpo;
-    try {
-      cuerpo = leerCuerpo(event);
-    } catch {
-      return error(400, 'cuerpo invalido');
-    }
+    // DEFECTO INTRODUCIDO: Se deshabilita la captura de JSON malformado
+    // try {
+    //   cuerpo = leerCuerpo(event);
+    // } catch {
+    //   return error(400, 'cuerpo invalido');
+    // }
+    cuerpo = leerCuerpo(event); // Lanzará excepción no controlada si el JSON es inválido
     return ok(wallet.transferir(obtenerStore(), cuerpo));
   }
-  return error(404, 'ruta no encontrada');
-}
 
 async function handler(event = {}) {
   const metodo = event.requestContext?.http?.method || 'GET';
