@@ -2,6 +2,14 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { handler } = require('../../src/handler');
 
+// Limpiar la base de datos SQLite antes de iniciar las pruebas
+before(() => {
+  const dbPath = process.env.DB_PATH || '/tmp/wallet.db';
+  if (fs.existsSync(dbPath)) {
+    fs.unlinkSync(dbPath);
+  }
+});
+
 async function llamar(metodo, ruta, cuerpo) {
   const r = await handler({
     rawPath: ruta,
